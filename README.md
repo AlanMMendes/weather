@@ -10,7 +10,7 @@ npm install
 yarn install
 ```
 
-Create an .env.local file in the root folder (outside of src folder), insert NEXT_PUBLIC_BASE_API_URL=key123124123 <== your api-key in the empty string, you can get for free at [Open Weather](https://openweathermap.org/api)
+Create an .env.local file in the root folder (outside of src folder), insert NEXT_PUBLIC_BASE_API_URL=key123124123 <== your api-key in the empty string, you can get for free at [Open Weather](https://openweathermap.org/api).
 
 Second, run the app:
 
