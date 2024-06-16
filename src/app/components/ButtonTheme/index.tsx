@@ -9,7 +9,7 @@ const ButtonTheme = () => {
   return (
     <button
       onClick={() => toggleTheme()}
-      className="flex dark:bg-yellow-400 shadow-lg  bg-white w-10 h-10 font-bold rounded-full justify-center items-center "
+      className="flex dark:bg-yellow-400 shadow-lg hover:bg-gray-500 bg-white w-10 h-10 font-bold rounded-full justify-center items-center "
     >
       {theme === "light" ? (
         <MdDarkMode color="yellow" />
