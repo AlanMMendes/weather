@@ -1,8 +1,9 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 const fetchWeather = async (lat: any, lon: any): Promise<any> => {
+  console.log(process.env.NEXT_PUBLIC_BASE_API_URL);
   const resp = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.key}&units=metric`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_BASE_API_URL}&units=metric`
   );
   return resp.json();
 };

@@ -23,7 +23,7 @@ export default function WeatherFilter() {
       lat: mapData[0]?.lat,
       lon: mapData[0]?.lon,
     });
-  }, []);
+  }, [mapData, setFilter]);
 
   const ButtonFilter = () => {
     if (!mapData) return;

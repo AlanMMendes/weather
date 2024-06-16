@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    key: "8d5fbac00b48772ba116ee238a401308",
-  },
+  env: { NEXT_PUBLIC_BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL },
 };
 
 export default nextConfig;
