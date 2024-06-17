@@ -41,14 +41,7 @@ const WeatherNow = () => {
     } else if (type === "Rain") {
       return <Image src={Rain} alt={""} width={size} />;
     } else if (type === "Clear") {
-      return (
-        <Image
-          src={Sunny}
-          alt={""}
-          className="hover:animate-spin"
-          width={size}
-        />
-      );
+      return <Image src={Sunny} alt={""} width={size} />;
     }
   };
 

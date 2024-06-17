@@ -116,7 +116,7 @@ const ChartWeather = ({ data, loading }: any) => {
     ],
   };
   return (
-    <div className="w-96 h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-lg">
+    <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-lg">
       <h1 className="top-0 py-5 px-5 left-0 text-3xl text-black dark:text-white">
         Wind Speed
       </h1>
