@@ -62,7 +62,7 @@ export default function WeatherFilter() {
       <div>
         <div className="flex items-center justify-center  gap-2">
           <label className="relative text-gray-400 focus-within:text-gray-600 block">
-            <CiSearch className="pointer-events-none w-5 h-8 absolute top-1/2 transform -translate-y-1/2 left-3" />
+            <CiSearch className="pointer-events-none text-black w-5 h-8 absolute top-1/2 transform -translate-y-1/2 left-3" />
             <input
               type="text"
               id="countries"
