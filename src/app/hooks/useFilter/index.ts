@@ -15,6 +15,7 @@ export const useWeather = (
   return useQuery({
     queryKey: ["userData", recall],
     queryFn: () => fetchWeather(lat, lon),
+    staleTime: 1000 * 60 * 3,
   });
 };
 

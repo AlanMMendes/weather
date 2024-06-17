@@ -44,7 +44,7 @@ const ChartWeather = ({ data, loading }: any) => {
   };
 
   return (
-    <div className="w-full h-full min-h-96 bg-white dark:bg-slate-700 dark:text-white rounded-lg shadow-md px-10 py-5">
+    <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-lg px-10 py-5">
       <h1 className="top-0 left-0 text-3xl text-black dark:text-white">
         Wind Speed
       </h1>
@@ -55,7 +55,7 @@ const ChartWeather = ({ data, loading }: any) => {
               <ReactECharts
                 option={option}
                 style={{
-                  height: "20rem",
+                  height: "30rem",
                 }}
               />
             </>

@@ -1,15 +1,19 @@
 "use client"; // This is a client component 👈🏽
 import { FilterContext } from "@/app/hooks/context/filter";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo, useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import { TfiTarget } from "react-icons/tfi";
 import { countries } from "../../data";
 
 export default function WeatherFilter() {
-  const [selectCountries, setSelectCountries] = useState<any>();
+  const [input, setInput] = useState<any>();
+  const [value, setValue] = useState<any>();
+  const [inputFilter, setinputFilter] = useState<any>();
   const { setFilter } = useContext<any>(FilterContext);
-
   const [mapData, setMapData] = useState<any>(
     countries[0]?.features?.map((item: any) => {
       return {
+        id: item.properties.id,
         name: item.properties.name,
         lat: item.geometry.coordinates[1],
         lon: item.geometry.coordinates[0],
@@ -17,7 +21,7 @@ export default function WeatherFilter() {
     })
   );
 
-  useEffect(() => {
+  useMemo(() => {
     setFilter({
       label: mapData[0]?.name,
       lat: mapData[0]?.lat,
@@ -28,42 +32,85 @@ export default function WeatherFilter() {
   const ButtonFilter = () => {
     if (!mapData) return;
     setFilter({
-      label: selectCountries || mapData[0]?.name,
+      label:
+        mapData?.find((item: any) => item?.id === inputFilter)?.name ||
+        mapData[0]?.name,
       lat:
-        mapData?.find((item: any) => item?.name === selectCountries)?.lat ||
+        mapData?.find((item: any) => item?.id === inputFilter)?.lat ||
         mapData[0]?.lat,
       lon:
-        mapData?.find((item: any) => item?.name === selectCountries)?.lon ||
+        mapData?.find((item: any) => item?.id === inputFilter)?.lon ||
         mapData[0]?.lon,
     });
   };
 
+  useMemo(() => {
+    setValue(
+      mapData?.filter((item: any) => {
+        return item && item?.name && item?.name?.toLowerCase()?.includes(input);
+      })
+    );
+  }, [input]);
+
   return (
-    <div className="w-full h-12 flex justify-center ">
-      <div className="flex flex-row gap-2 ">
-        <select
-          id="countries"
-          onChange={(event: any) => {
-            setSelectCountries(event.target.value);
-          }}
-          className="w-96 h-12 cursor-pointer bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-        >
-          {mapData?.map((item: any, index: any) => {
-            return (
-              <option key={index} value={item.value}>
-                {item?.name}
-              </option>
-            );
-          })}
-        </select>
-        <button
-          onClick={() => ButtonFilter()}
-          type="button"
-          className="w-auto px-2 h-12 m-0 dark:bg-gray-700 dark:text-white hover:bg-white hover:text-black bg-white border  border-gray-300 text-gray-900 text-sm rounded-lg  "
-        >
-          Search
-        </button>
+    <form
+      className=" flex-wrap justify-center items-center flex  "
+      onSubmit={(e: any) => {
+        e.preventDefault(), ButtonFilter();
+      }}
+    >
+      <div>
+        <div className="flex items-center justify-center  gap-2">
+          <label className="relative text-gray-400 focus-within:text-gray-600 block">
+            <CiSearch className="pointer-events-none w-5 h-8 absolute top-1/2 transform -translate-y-1/2 left-3" />
+            <input
+              type="text"
+              id="countries"
+              value={input}
+              onChange={(event: any) => {
+                setInput(event.target.value);
+              }}
+              placeholder="Search for places ..."
+              className="w-72 h-10 text-black rounded-lg placeholder-black placeholder-opacity-8s0 px-12 shadow-sm shadow-gray-400"
+            />
+          </label>
+
+          <button
+            type="submit"
+            onClick={() => {
+              setInput("");
+            }}
+            className="flex items-center hover:bg-gray-300 justify-center bg-gray-100 w-8 h-8 rounded-full  "
+          >
+            <TfiTarget className="text-black " />
+          </button>
+        </div>
+
+        {input !== "" && (
+          <ul className="absolute overflow-auto bg-white shadow-md max-h-[24rem] rounded-lg w-72 text-black">
+            {value?.map((item: any, index: any) => {
+              return (
+                <li
+                  id={item?.id}
+                  key={index}
+                  className="hover:bg-gray-300 cursor-pointer min-h-10 justify-start items-center flex px-1"
+                  value={item?.id}
+                  onClick={(event: any) => {
+                    setinputFilter(event.target.value);
+                    setInput(
+                      mapData?.find(
+                        (item: any) => item?.id === event.target.value
+                      )?.name
+                    );
+                  }}
+                >
+                  {item?.name}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
-    </div>
+    </form>
   );
 }

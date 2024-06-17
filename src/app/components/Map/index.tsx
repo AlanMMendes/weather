@@ -14,7 +14,7 @@ const MapChart = () => {
   const { filter: message } = useContext<any>(FilterContext);
 
   return (
-    <div className="w-full h-full min-h-96 bg-white dark:bg-slate-700 dark:text-white rounded-lg shadow-md">
+    <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
       {message && (
         <>
           <ComposableMap className="rounded-lg w-full h-full">
