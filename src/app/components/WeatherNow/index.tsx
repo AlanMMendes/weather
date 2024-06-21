@@ -14,6 +14,7 @@ import Sunset from "../Assets/sunset.svg";
 import ButtonTheme from "../ButtonTheme";
 import Loading from "../Loading";
 import WeatherFilter from "../WeatherFilter";
+import "./style.css";
 
 const WeatherNow = () => {
   const { filter } = useContext<any>(FilterContext);
@@ -52,7 +53,7 @@ const WeatherNow = () => {
   const timeNow = new Date();
 
   return (
-    <div className="py-10 flex flex-col justify-center items-center h-full gap-5 w-full ">
+    <div className="py-10 flex flex-col justify-center items-center h-full gap-5 w-full">
       <ButtonTheme />
       <WeatherFilter />
       {isLoadingResponse ? (
@@ -61,9 +62,7 @@ const WeatherNow = () => {
         </div>
       ) : (
         <div className="h-full space-y-10">
-          <div className="">
-            {selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}
-          </div>
+          <div>{selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}</div>
           <div className="dark:text-white text-black">
             <span className="text-7xl justify-start">
               {Math.round(Response?.list[0]?.main?.temp)}
@@ -81,7 +80,7 @@ const WeatherNow = () => {
 
           <hr />
           <div className="space-y-2">
-            <div className="flex justify-start items-center gap-3 px-1 border rounded-md h-12 ">
+            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
               <span className="text-2xl dark:text-white text-black">
                 {selectedIcon(Response?.list[0]?.weather[0]?.main, 40)}{" "}
               </span>
@@ -89,7 +88,7 @@ const WeatherNow = () => {
                 {Response?.list[0]?.weather[0]?.main}
               </span>
             </div>
-            <div className="flex justify-start items-center gap-3 px-1 border rounded-md h-12 ">
+            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
               <span className="text-2xl dark:text-white text-black">
                 <Image src={Humidity} alt={""} width={40} />
               </span>
@@ -97,7 +96,7 @@ const WeatherNow = () => {
                 Humidity - {Response?.list[0]?.main?.humidity}%
               </span>
             </div>
-            <div className="flex justify-start items-center gap-3 px-1 border rounded-md h-12 ">
+            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
               <span className="text-2xl dark:text-white text-black">
                 <Image src={Population} alt={""} width={40} />
               </span>
@@ -105,7 +104,7 @@ const WeatherNow = () => {
                 Population - {Response?.city?.population}
               </span>
             </div>
-            <div className="flex justify-start items-center gap-3 px-1 border rounded-md h-12 ">
+            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
               <span className="text-2xl dark:text-white text-black">
                 <Image src={Sunrise} alt={""} width={40} />
               </span>
@@ -113,7 +112,7 @@ const WeatherNow = () => {
                 Sunrise - {moment.unix(Response?.city?.sunrise).fromNow()}
               </span>
             </div>
-            <div className="flex justify-start items-center gap-3 px-1 border rounded-md h-12 ">
+            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
               <span className="text-2xl dark:text-white text-black">
                 <Image src={Sunset} alt={""} width={40} />
               </span>

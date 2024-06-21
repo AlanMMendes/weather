@@ -116,13 +116,13 @@ const ChartWeather = ({ data, loading }: any) => {
     ],
   };
   return (
-    <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-lg">
-      <h1 className="top-0 py-5 px-5 left-0 text-3xl text-black dark:text-white">
+    <div className="relative bg-white h-full dark:bg-zinc-900 dark:text-white rounded-lg shadow-lg">
+      <h1 className="absolute px-5 py-5 top-0  left-0 text-3xl text-black dark:text-white">
         Wind Speed
       </h1>
       {!loading && (
         <>
-          {typeof window !== "undefined" && (
+          {typeof window !== undefined && (
             <>
               <ReactECharts option={option} />
             </>

@@ -54,13 +54,13 @@ export default function WeatherFilter() {
 
   return (
     <form
-      className=" flex-wrap justify-center items-center flex  "
+      className=" flex-wrap justify-center items-center flex"
       onSubmit={(e: any) => {
         e.preventDefault(), ButtonFilter();
       }}
     >
       <div>
-        <div className="flex items-center justify-center  gap-2">
+        <div className="flex items-center justify-center gap-2 flex-wrap">
           <label className="relative text-gray-400 focus-within:text-gray-600 block">
             <CiSearch className="pointer-events-none text-black w-5 h-8 absolute top-1/2 transform -translate-y-1/2 left-3" />
             <input
@@ -70,8 +70,8 @@ export default function WeatherFilter() {
               onChange={(event: any) => {
                 setInput(event.target.value);
               }}
-              placeholder="Search for places ..."
-              className="w-72 h-10 text-black rounded-lg placeholder-black placeholder-opacity-8s0 px-12 shadow-sm shadow-gray-400"
+              placeholder="Search for places"
+              className="w-64 h-10 text-black rounded-lg placeholder-black placeholder-opacity-8s0 px-12 shadow-sm shadow-gray-400"
             />
           </label>
 
@@ -87,7 +87,7 @@ export default function WeatherFilter() {
         </div>
 
         {input !== "" && (
-          <ul className="absolute overflow-auto bg-white shadow-md max-h-[24rem] rounded-lg w-72 text-black">
+          <ul className="absolute overflow-auto bg-white shadow-md max-h-[24rem] rounded-lg w-64 text-black">
             {value?.map((item: any, index: any) => {
               return (
                 <li
