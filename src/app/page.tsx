@@ -13,6 +13,7 @@ import MaxTemperature from "./components/Assets/maxIcon.svg";
 import RainSmall from "./components/Assets/rainSmall.svg";
 import RainIcon from "./components/Assets/rainyIcon.svg";
 import Wind from "./components/Assets/wind.svg";
+import ButtonTheme from "./components/ButtonTheme";
 import WeatherFilter from "./components/WeatherFilter";
 
 export default function Home() {
@@ -49,7 +50,7 @@ export default function Home() {
 
   const selectedBg = (type: any) => {
     if (type === "Clouds") {
-      return "bg-white text-black";
+      return "bg-white text-black dark:bg-zinc-950 dark:text-white";
     } else if (type === "Rain") {
       return "bg-gradient-to-r from-sky-500 to-sky-400 text-white";
     } else if (type === "Clear") {
@@ -58,14 +59,17 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col py-2 px-2 lg:bg-gray-100  lg:rounded-2xl lg:w-96 h-screen lg:h-screen md:h-screen">
-      <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black  gap-2">
-        <WeatherFilter />
-        <div className="flex flex-col items-center justify-center py-2 bg-white w-full max-w-96 rounded-3xl">
+    <div className="flex flex-col py-2  px-2 dark:bg-zinc-900 gap-2 lg:bg-gray-100 lg:dark:bg-zinc-900  lg:rounded-lg lg:w-96 h-full lg:h-screen md:h-screen">
+      <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black  gap-3">
+        <div className="flex flex-row gap-2 ">
+          <WeatherFilter />
+          <ButtonTheme />
+        </div>
+        <div className="flex flex-col items-center justify-center  dark:text-white bg-white dark:bg-zinc-950 w-full max-w-96 rounded-3xl">
           <span className="text-3xl font-thin">{filter?.label}</span>
           {selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}
         </div>
-        <div className="flex flex-col justify-center items-center bg-white rounded-3xl w-full max-w-96">
+        <div className="flex flex-col justify-center items-center bg-white dark:text-white dark:bg-zinc-950 rounded-3xl w-full max-w-96">
           <span className="font-bold text-8xl">
             {Math.round(Response?.list[0].main.temp)}°
           </span>
@@ -73,22 +77,22 @@ export default function Home() {
             {Response?.list[0].weather[0].description}
           </span>
         </div>
-        <div className=" flex flex-row flex-wrap justify-center items-center gap-2 py-1">
-          <div className="shadow-md min-h-24 bg-white rounded-3xl gap-1 flex flex-col justify-center items-center min-w-24">
+        <div className="flex flex-row flex-wrap justify-center items-center gap-2">
+          <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
             <Image src={Wind} alt={"Wind"} width={25} />
             <span className="font-medium text-sm">
               {Math.round(Response?.list[0]?.wind?.speed)} km/h
             </span>
             <span className="text-gray-400">Wind</span>
           </div>
-          <div className="shadow-md min-h-24 bg-white rounded-3xl  gap-1 flex flex-col px-2 py-2 justify-center items-center min-w-24">
+          <div className="shadow-md min-h-24 bg-white dark:bg-zinc-950 dark:text-white rounded-3xl  gap-1 flex flex-col  justify-center items-center min-w-24">
             <Image src={Humidity} alt={"Humidity"} width={15} />
             <span className="font-medium text-sm">
               {Math.round(Response?.list[0]?.main?.humidity)}%
             </span>
             <span className="text-gray-400">Humidity</span>
           </div>
-          <div className="shadow-md min-h-24 bg-white rounded-3xl  gap-1 flex flex-col px-2 py-2 justify-center items-center min-w-24">
+          <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
             <Image src={MaxTemperature} alt={"MaxTemperature"} width={15} />
             <span className="font-medium text-sm">
               {Math.round(Response?.list[0]?.main?.temp_max)}°
@@ -97,9 +101,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-start md:items-center md:justify-start py-2 lg:items-start lg:justify-start text-black">
+      <div className="flex flex-col justify-center items-start md:items-center md:justify-start  lg:items-start lg:justify-start text-black">
         <div>
-          <span className="font-medium text-lg">Today</span>
+          <span className="font-medium text-lg dark:text-white">Today</span>
         </div>
       </div>
       <div className="flex flex-row justify-center flex-wrap gap-2">
@@ -108,7 +112,7 @@ export default function Home() {
             <div
               className={`shadow-md min-h-24 ${selectedBg(
                 item?.weather[0]?.main
-              )} rounded-3xl  gap-1 flex flex-col px-2 py-2 justify-center items-center min-w-20`}
+              )} rounded-3xl gap-1 flex flex-col  justify-center items-center min-w-20`}
             >
               <span className="font-medium text-sm">
                 {Math.round(item?.main?.temp)}°
