@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   return (
-    <div className="lg:flex-row lg:gap-1 flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:h-auto lg:w-96">
+    <div className="lg:flex-row lg:gap-1 min-h-screen flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:min-h-screen md:h-auto lg:w-96">
       <div className=" flex-col py-2 h-full px-2  gap-2  lg:rounded-lg lg:w-96  lg:h-auto md:h-auto">
         <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black   gap-3">
           <div className="flex flex-row gap-2 ">
@@ -102,12 +102,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-start md:items-center md:justify-start  lg:items-start lg:justify-start text-black">
+        <div className="flex py-2 flex-col justify-center items-start md:items-center md:justify-start  lg:items-start lg:justify-start text-black">
           <div>
             <span className="font-medium text-lg dark:text-white">Today</span>
           </div>
         </div>
-        <div className=" flex flex-row justify-center flex-wrap gap-2">
+        <div className="flex flex-row justify-center flex-wrap gap-2">
           {Response?.list?.slice(0, 4)?.map((item: any) => {
             return (
               <div
