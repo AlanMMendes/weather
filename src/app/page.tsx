@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col py-2 h-full px-2 dark:bg-zinc-900 gap-2 lg:bg-gray-100 lg:dark:bg-zinc-900  lg:rounded-lg lg:w-96  lg:h-svh md:h-screen">
+    <div className="flex flex-col py-2 h-full px-2 dark:bg-zinc-900 gap-2 lg:bg-gray-100 lg:dark:bg-zinc-900  lg:rounded-lg lg:w-96  lg:h-auto md:h-screen">
       <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black  gap-3">
         <div className="flex flex-row gap-2 ">
           <WeatherFilter />
