@@ -54,7 +54,7 @@ export default function WeatherFilter() {
 
   return (
     <form
-      className="flex w-full px-2 py-2"
+      className="flex w-full"
       onSubmit={(e: any) => {
         e.preventDefault(), ButtonFilter();
       }}

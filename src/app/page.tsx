@@ -6,9 +6,7 @@ import { useContext } from "react";
 import Clouds from "./components/Assets/clouds.svg";
 import Rain from "./components/Assets/rain.svg";
 import Sunny from "./components/Assets/sunny.svg";
-import WeatherFilter from "./components/WeatherFilter";
-
-import MapChart from "./components/Map";
+import WeatherNow from "./components/WeatherNow";
 import WeatherToday from "./components/WeatherToday";
 
 export default function Home() {
@@ -29,7 +27,6 @@ export default function Home() {
     "Saturday",
   ];
   var now = new Date(Response?.list[0]?.dt_txt);
-  var day = days[now.getDay()];
   const data = { timezone: Response?.city?.timezone || 0 };
   const hoursTz =
     -Math?.sign(data.timezone) * Math?.floor(Math?.abs(data?.timezone) / 3600);
@@ -49,39 +46,10 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-1 lg:flex-row md:flex-row w-full h-full  ">
-      <div className="flex shadow-lg bg-white  rounded-br-3xl flex-col w-full h-screen ">
-        <div className="flex flex-col gap-5 py-5 w-full px-1 items-start ">
-          <WeatherFilter />
-          <div className="absolute top-0 left-0 scale-175 z-0 ">
-            {selectedIcon(Response?.list[0]?.weather[0]?.main, 280)}
-          </div>
-          <div className="flex flex-col z-50 ">
-            <div className=" text-black">
-              <span className="text-7xl justify-start">
-                {Math.round(Response?.list[0]?.main?.temp)}
-                <span className="text-2xl">°c</span>
-              </span>
-            </div>
-            <div>
-              <span className="text-2xl text-black justify-start">
-                {day},{" "}
-                {timeNow?.toLocaleTimeString("us-EN", {
-                  timeZone: `Etc/GMT${sign}${hoursTz}`,
-                })}
-              </span>
-            </div>
-          </div>
-          <div className="w-full mt-32">
-            <WeatherToday data={Response} />
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full px-2 py-1 flex flex-col gap-2 h-screen ">
-        <div className="h-96">
-          <MapChart />
-        </div>
+    <div className="flex flex-col px-5 py-2 dark:bg-zinc-900 w-full h-screen  ">
+      <div className="flex rounded-br-3xl flex-col gap-10 justify-center items-center  ">
+        <WeatherNow />
+        <WeatherToday data={Response} />
       </div>
     </div>
   );

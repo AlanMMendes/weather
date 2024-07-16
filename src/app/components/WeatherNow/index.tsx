@@ -1,16 +1,11 @@
 "use client";
 import { FilterContext } from "@/app/hooks/context/filter";
 import useWeather from "@/app/hooks/useFilter";
-import moment from "moment";
 import Image from "next/image";
 import { useContext } from "react";
 import Clouds from "../Assets/clouds.svg";
-import Population from "../Assets/house.svg";
-import Humidity from "../Assets/humidity.svg";
 import Rain from "../Assets/rain.svg";
 import Sunny from "../Assets/sunny.svg";
-import Sunrise from "../Assets/sunrise.svg";
-import Sunset from "../Assets/sunset.svg";
 import ButtonTheme from "../ButtonTheme";
 import Loading from "../Loading";
 import WeatherFilter from "../WeatherFilter";
@@ -33,6 +28,8 @@ const WeatherNow = () => {
     "Saturday",
   ];
 
+  console.log(filter);
+
   var now = new Date(Response?.list[0]?.dt_txt);
   var day = days[now.getDay()];
 
@@ -53,73 +50,29 @@ const WeatherNow = () => {
   const timeNow = new Date();
 
   return (
-    <div className="py-10 flex flex-col justify-center items-center h-full gap-5 w-full">
-      <ButtonTheme />
+    <div className="flex flex-col h-full gap-5 w-full">
+      <div className="flex items-center gap-2 justify-end ">
+        <span className="text-lg text-white justify-end">
+          {day},{" "}
+          {timeNow?.toLocaleTimeString("us-EN", {
+            timeZone: `Etc/GMT${sign}${hoursTz}`,
+          })}
+        </span>
+        <ButtonTheme />
+      </div>
       <WeatherFilter />
       {isLoadingResponse ? (
         <div className="h-screen flex items-start justify-center">
           <Loading />
         </div>
       ) : (
-        <div className="h-full space-y-10">
-          <div>{selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}</div>
-          <div className="dark:text-white text-black">
+        <div>
+          <span className="text-3xl">{filter.label}</span>
+          <div className="flex flex-row h-full items-center justify-center">
             <span className="text-7xl justify-start">
               {Math.round(Response?.list[0]?.main?.temp)}
               <span className="text-2xl">°c</span>
             </span>
-          </div>
-          <div>
-            <span className="text-2xl dark:text-white text-black justify-start">
-              {day},{" "}
-              {timeNow?.toLocaleTimeString("us-EN", {
-                timeZone: `Etc/GMT${sign}${hoursTz}`,
-              })}
-            </span>
-          </div>
-
-          <hr />
-          <div className="space-y-2">
-            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
-              <span className="text-2xl dark:text-white text-black">
-                {selectedIcon(Response?.list[0]?.weather[0]?.main, 40)}{" "}
-              </span>
-              <span className="text-base  text-black dark:text-white">
-                {Response?.list[0]?.weather[0]?.main}
-              </span>
-            </div>
-            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
-              <span className="text-2xl dark:text-white text-black">
-                <Image src={Humidity} alt={""} width={40} />
-              </span>
-              <span className="text-base text-black dark:text-white">
-                Humidity - {Response?.list[0]?.main?.humidity}%
-              </span>
-            </div>
-            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
-              <span className="text-2xl dark:text-white text-black">
-                <Image src={Population} alt={""} width={40} />
-              </span>
-              <span className="text-base text-black dark:text-white">
-                Population - {Response?.city?.population}
-              </span>
-            </div>
-            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
-              <span className="text-2xl dark:text-white text-black">
-                <Image src={Sunrise} alt={""} width={40} />
-              </span>
-              <span className="text-base text-black dark:text-white">
-                Sunrise - {moment.unix(Response?.city?.sunrise).fromNow()}
-              </span>
-            </div>
-            <div className="flex justify-start items-center gap-3 px-1  rounded-md h-12 ">
-              <span className="text-2xl dark:text-white text-black">
-                <Image src={Sunset} alt={""} width={40} />
-              </span>
-              <span className="text-base text-black dark:text-white">
-                Sunset - {moment.unix(Response?.city?.sunset).fromNow()}
-              </span>
-            </div>
           </div>
         </div>
       )}
