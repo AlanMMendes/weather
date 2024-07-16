@@ -5,8 +5,6 @@ import Loading from "../../Loading";
 const MaxMin = ({ data, loading }: any) => {
   const { theme } = useContext<any>(ThemeContext);
 
-  console.log(data);
-
   return (
     <div className="w-full h-full bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-lg">
       <h1 className="top-0 py-5 px-5 left-0 text-3xl text-black dark:text-white">

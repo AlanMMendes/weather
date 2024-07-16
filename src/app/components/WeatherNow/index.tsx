@@ -28,8 +28,6 @@ const WeatherNow = () => {
     "Saturday",
   ];
 
-  console.log(filter);
-
   var now = new Date(Response?.list[0]?.dt_txt);
   var day = days[now.getDay()];
 

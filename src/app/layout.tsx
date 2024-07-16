@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider>
         <FilterProvider>
-          <body className="bg-gray-200 dark:bg-zinc-950">{children}</body>
+          <body className="bg-slate-200 dark:bg-zinc-950">{children}</body>
         </FilterProvider>
       </ThemeProvider>
     </html>
