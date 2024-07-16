@@ -59,13 +59,13 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col py-2  px-2 dark:bg-zinc-900 gap-2 lg:bg-gray-100 lg:dark:bg-zinc-900  lg:rounded-lg lg:w-96 h-full lg:h-screen md:h-screen">
+    <div className="flex flex-col py-2 h-full px-2 dark:bg-zinc-900 gap-2 lg:bg-gray-100 lg:dark:bg-zinc-900  lg:rounded-lg lg:w-96  lg:h-svh md:h-screen">
       <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black  gap-3">
         <div className="flex flex-row gap-2 ">
           <WeatherFilter />
           <ButtonTheme />
         </div>
-        <div className="flex flex-col items-center justify-center  dark:text-white bg-white dark:bg-zinc-950 w-full max-w-96 rounded-3xl">
+        <div className="flex  flex-col items-center justify-center  dark:text-white bg-white dark:bg-zinc-950 w-full max-w-96 rounded-3xl">
           <span className="text-3xl font-thin">{filter?.label}</span>
           {selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}
         </div>
@@ -106,13 +106,13 @@ export default function Home() {
           <span className="font-medium text-lg dark:text-white">Today</span>
         </div>
       </div>
-      <div className="flex flex-row justify-center flex-wrap gap-2">
+      <div className=" flex flex-row justify-center flex-wrap gap-2">
         {Response?.list?.slice(0, 4)?.map((item: any) => {
           return (
             <div
               className={`shadow-md min-h-24 ${selectedBg(
                 item?.weather[0]?.main
-              )} rounded-3xl gap-1 flex flex-col  justify-center items-center min-w-20`}
+              )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-20`}
             >
               <span className="font-medium text-sm">
                 {Math.round(item?.main?.temp)}°
