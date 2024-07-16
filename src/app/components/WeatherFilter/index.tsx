@@ -54,15 +54,15 @@ export default function WeatherFilter() {
 
   return (
     <form
-      className=" flex-wrap justify-center items-center flex"
+      className="flex w-full px-2 py-2"
       onSubmit={(e: any) => {
         e.preventDefault(), ButtonFilter();
       }}
     >
-      <div>
-        <div className="flex items-center justify-center gap-2 flex-wrap">
-          <label className="relative text-gray-400 focus-within:text-gray-600 block">
-            <CiSearch className="pointer-events-none text-black w-5 h-8 absolute top-1/2 transform -translate-y-1/2 left-3" />
+      <div className="flex flex-row gap-2 z-50 items-start justify-start w-full">
+        <div className="relative flex flex-col w-full justify-center items-center">
+          <label className=" text-gray-400 focus-within:text-gray-600 w-full">
+            <CiSearch className="pointer-events-none mt-1 text-black absolute h-8 w-8" />
             <input
               type="text"
               id="countries"
@@ -71,45 +71,46 @@ export default function WeatherFilter() {
                 setInput(event.target.value);
               }}
               placeholder="Search for places"
-              className="w-64 h-10 text-black rounded-lg placeholder-black placeholder-opacity-8s0 px-12 shadow-sm shadow-gray-400"
+              className="w-full h-10 rounded-lg px-8 justify-center items-center text-black"
             />
+            <div className="flex w-full absolute ">
+              {input !== "" && (
+                <ul className="max-h-[24rem] z-100 rounded-lg overflow-auto text-black bg-white shadow-md w-full">
+                  {value?.map((item: any, index: any) => {
+                    return (
+                      <li
+                        id={item?.id}
+                        key={index}
+                        className="hover:bg-gray-300 cursor-pointer min-h-10 justify-start items-center flex px-2"
+                        value={item?.id}
+                        onClick={(event: any) => {
+                          setinputFilter(event.target.value);
+                          setInput(
+                            mapData?.find(
+                              (item: any) => item?.id === event.target.value
+                            )?.name
+                          );
+                        }}
+                      >
+                        {item?.name}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
           </label>
-
-          <button
-            type="submit"
-            onClick={() => {
-              setInput("");
-            }}
-            className="flex items-center hover:bg-gray-300 justify-center bg-gray-100 w-8 h-8 rounded-full  "
-          >
-            <TfiTarget className="text-black " />
-          </button>
         </div>
 
-        {input !== "" && (
-          <ul className="absolute overflow-auto bg-white shadow-md max-h-[24rem] rounded-lg w-64 text-black">
-            {value?.map((item: any, index: any) => {
-              return (
-                <li
-                  id={item?.id}
-                  key={index}
-                  className="hover:bg-gray-300 cursor-pointer min-h-10 justify-start items-center flex px-1"
-                  value={item?.id}
-                  onClick={(event: any) => {
-                    setinputFilter(event.target.value);
-                    setInput(
-                      mapData?.find(
-                        (item: any) => item?.id === event.target.value
-                      )?.name
-                    );
-                  }}
-                >
-                  {item?.name}
-                </li>
-              );
-            })}
-          </ul>
-        )}
+        <button
+          type="submit"
+          onClick={() => {
+            setInput("");
+          }}
+          className="flex items-center hover:bg-gray-300 bg-white justify-center  w-10 h-10 rounded-lg  "
+        >
+          <TfiTarget className="text-black " />
+        </button>
       </div>
     </form>
   );

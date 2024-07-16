@@ -2,7 +2,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useState } from "react";
 
-export const FilterContext: any = createContext(null);
+export const FilterContext: any = createContext({} as any);
 const queryClient = new QueryClient();
 
 export const FilterProvider = ({ children }: any) => {
