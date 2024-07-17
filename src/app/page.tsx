@@ -64,8 +64,8 @@ export default function Home() {
       <div className=" flex-col py-2 h-full px-2  gap-2  lg:rounded-lg lg:w-96  lg:h-auto md:h-auto">
         <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black   gap-3">
           <div className="flex flex-row gap-2 ">
-            <WeatherFilter />
             <ButtonTheme />
+            <WeatherFilter />
           </div>
           <div className="flex flex-col min-h-80 items-center justify-center  dark:text-white bg-white dark:bg-zinc-950 w-full max-w-96 rounded-3xl">
             {isLoadingResponse ? (
@@ -137,17 +137,17 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex py-2 flex-col justify-center items-start md:items-center md:justify-start  lg:items-start lg:justify-start text-black">
+        <div className="flex py-2 flex-col justify-center items-start md:items-center  md:justify-start  lg:items-start lg:justify-start text-black">
           <div>
             <span className="font-medium text-lg dark:text-white">Today</span>
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center flex-wrap gap-2 bg-white shadow-md rounded-3xl py-5 min-h-60">
+        <div className="flex flex-row justify-center items-center flex-wrap gap-2 bg-white dark:bg-zinc-950 shadow-md rounded-3xl py-5 min-h-60">
           {isLoadingResponse ? (
             <Loading extraClass={"w-12 h-12"} />
           ) : (
             <>
-              {Response?.list?.slice(0, 4)?.map((item: any) => {
+              {Response?.list?.slice(0, 6)?.map((item: any) => {
                 return (
                   <div
                     className={`shadow-md min-h-24 ${selectedBg(
