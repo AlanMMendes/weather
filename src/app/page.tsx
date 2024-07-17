@@ -9,11 +9,12 @@ import ClearSmall from "./components/Assets/clearSmall.svg";
 import CloudRain from "./components/Assets/cloudIcon.svg";
 import CloudSmall from "./components/Assets/cloudSmall.svg";
 import Humidity from "./components/Assets/humidity.svg";
-import MaxTemperature from "./components/Assets/maxIcon.svg";
+import MaxTemperature from "./components/Assets/max-temperature.svg";
 import RainSmall from "./components/Assets/rainSmall.svg";
 import RainIcon from "./components/Assets/rainyIcon.svg";
 import Wind from "./components/Assets/wind.svg";
 import ButtonTheme from "./components/ButtonTheme";
+import Loading from "./components/Loading";
 import WeatherFilter from "./components/WeatherFilter";
 
 export default function Home() {
@@ -66,39 +67,73 @@ export default function Home() {
             <WeatherFilter />
             <ButtonTheme />
           </div>
-          <div className="flex  flex-col items-center justify-center  dark:text-white bg-white dark:bg-zinc-950 w-full max-w-96 rounded-3xl">
-            <span className="text-3xl font-thin">{filter?.label}</span>
-            {selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}
+          <div className="flex flex-col min-h-80 items-center justify-center  dark:text-white bg-white dark:bg-zinc-950 w-full max-w-96 rounded-3xl">
+            {isLoadingResponse ? (
+              <Loading extraClass={"w-12 h-12"} />
+            ) : (
+              <>
+                <span className="text-3xl font-thin">{filter?.label}</span>
+                {selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}
+              </>
+            )}
           </div>
-          <div className="flex flex-col justify-center items-center bg-white dark:text-white dark:bg-zinc-950 rounded-3xl w-full max-w-96">
-            <span className="font-bold text-8xl">
-              {Math.round(Response?.list[0].main.temp)}°
-            </span>
-            <span className="text-gray-400 text-lg">
-              {Response?.list[0].weather[0].description}
-            </span>
+          <div className="flex flex-col min-h-32 justify-center items-center bg-white dark:text-white dark:bg-zinc-950 rounded-3xl w-full max-w-96">
+            {isLoadingResponse ? (
+              <Loading extraClass={"w-10 h-10"} />
+            ) : (
+              <>
+                <span className="font-bold text-8xl">
+                  {Math.round(Response?.list[0].main.temp)}°
+                </span>
+                <span className="text-gray-400 text-lg">
+                  {Response?.list[0].weather[0].description}
+                </span>
+              </>
+            )}
           </div>
           <div className="flex flex-row flex-wrap justify-center items-center gap-2">
             <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
-              <Image src={Wind} alt={"Wind"} width={25} />
-              <span className="font-medium text-sm">
-                {Math.round(Response?.list[0]?.wind?.speed)} km/h
-              </span>
-              <span className="text-gray-400">Wind</span>
-            </div>
-            <div className="shadow-md min-h-24 bg-white dark:bg-zinc-950 dark:text-white rounded-3xl  gap-1 flex flex-col  justify-center items-center min-w-24">
-              <Image src={Humidity} alt={"Humidity"} width={15} />
-              <span className="font-medium text-sm">
-                {Math.round(Response?.list[0]?.main?.humidity)}%
-              </span>
-              <span className="text-gray-400">Humidity</span>
+              {isLoadingResponse ? (
+                <Loading extraClass={"w-5 h-5"} />
+              ) : (
+                <>
+                  <Image src={Wind} alt={"Wind"} width={25} />
+                  <span className="font-medium text-sm">
+                    {Math.round(Response?.list[0]?.wind?.speed)} km/h
+                  </span>
+                  <span className="text-gray-400">Wind</span>
+                </>
+              )}
             </div>
             <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
-              <Image src={MaxTemperature} alt={"MaxTemperature"} width={15} />
-              <span className="font-medium text-sm">
-                {Math.round(Response?.list[0]?.main?.temp_max)}°
-              </span>
-              <span className="text-gray-400">Max</span>
+              {isLoadingResponse ? (
+                <Loading extraClass={"w-5 h-5"} />
+              ) : (
+                <>
+                  <Image src={Humidity} alt={"Humidity"} width={25} />
+                  <span className="font-medium text-sm">
+                    {Math.round(Response?.list[0]?.main?.humidity)}%
+                  </span>
+                  <span className="text-gray-400">Humidity</span>
+                </>
+              )}
+            </div>
+            <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
+              {isLoadingResponse ? (
+                <Loading extraClass={"w-5 h-5"} />
+              ) : (
+                <>
+                  <Image
+                    src={MaxTemperature}
+                    alt={"MaxTemperature"}
+                    width={25}
+                  />
+                  <span className="font-medium text-sm">
+                    {Math.round(Response?.list[0]?.main?.temp_max)}°
+                  </span>
+                  <span className="text-gray-400">Max</span>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -107,24 +142,30 @@ export default function Home() {
             <span className="font-medium text-lg dark:text-white">Today</span>
           </div>
         </div>
-        <div className="flex flex-row justify-center flex-wrap gap-2">
-          {Response?.list?.slice(0, 4)?.map((item: any) => {
-            return (
-              <div
-                className={`shadow-md min-h-24 ${selectedBg(
-                  item?.weather[0]?.main
-                )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-20`}
-              >
-                <span className="font-medium text-sm">
-                  {Math.round(item?.main?.temp)}°
-                </span>
-                {selectedSmallIcon(item?.weather[0]?.main, 40)}
-                <span className="font-medium text-sm ">
-                  {moment(item?.dt_txt)?.format("HH:mm")}
-                </span>
-              </div>
-            );
-          })}
+        <div className="flex flex-row justify-center items-center flex-wrap gap-2 bg-white shadow-md rounded-3xl py-5 min-h-60">
+          {isLoadingResponse ? (
+            <Loading extraClass={"w-12 h-12"} />
+          ) : (
+            <>
+              {Response?.list?.slice(0, 4)?.map((item: any) => {
+                return (
+                  <div
+                    className={`shadow-md min-h-24 ${selectedBg(
+                      item?.weather[0]?.main
+                    )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-20 border shadow-xl`}
+                  >
+                    <span className="font-medium text-sm">
+                      {Math.round(item?.main?.temp)}°
+                    </span>
+                    {selectedSmallIcon(item?.weather[0]?.main, 40)}
+                    <span className="font-medium text-sm ">
+                      {moment(item?.dt_txt)?.format("HH:mm")}
+                    </span>
+                  </div>
+                );
+              })}
+            </>
+          )}
         </div>
       </div>
     </div>
