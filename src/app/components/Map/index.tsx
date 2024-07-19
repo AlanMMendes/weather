@@ -18,7 +18,7 @@ const MapChart = () => {
       {message && (
         <>
           <ComposableMap className="rounded-lg w-full h-full">
-            <ZoomableGroup center={[message.lat, message.lon]} zoom={9}>
+            <ZoomableGroup center={[message.lat, message.lon]} zoom={10}>
               <Geographies geography={geo}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
@@ -27,7 +27,10 @@ const MapChart = () => {
                 }
               </Geographies>
               <Marker coordinates={[message.lat, message.lon]}>
-                <circle r={0.5} fill="white" />
+                <text fill="red" fontSize={2} x={1}>
+                  {message.label}
+                </text>
+                <circle r={0.5} fill="red" />
               </Marker>
             </ZoomableGroup>
           </ComposableMap>

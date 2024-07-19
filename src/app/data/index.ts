@@ -2831,7 +2831,7 @@ export const countries: any = [
         properties: { id: 353, name: "London" },
         geometry: {
           type: "Point",
-          coordinates: [-0.118667702475932, 51.5019405883275],
+          coordinates: [51.5072, 0.1276],
         },
       },
       {
