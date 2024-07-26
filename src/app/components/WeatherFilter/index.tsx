@@ -50,6 +50,8 @@ export default function WeatherFilter() {
     setShowPreview(false);
   }, [input]);
 
+  console.log(preview?.slice(0, 9).length);
+
   return (
     <form
       className="flex w-full"
@@ -86,7 +88,6 @@ export default function WeatherFilter() {
                         className="hover:bg-gray-300 cursor-pointer min-h-10 justify-start items-center flex px-2"
                         value={item?.name}
                         onClick={(e) => {
-                          e.preventDefault();
                           setInput(item?.name);
                           setShowPreview(true);
                         }}
