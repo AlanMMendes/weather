@@ -3,20 +3,22 @@ import { FilterContext } from "@/app/hooks/context/filter";
 import { useContext, useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { TfiTarget } from "react-icons/tfi";
-import { countries } from "../../data";
+import worldCities from "../../data/citiesWorld.json";
 
 export default function WeatherFilter() {
+  const [worldMap, setWorldMap] = useState<any>(worldCities);
   const [input, setInput] = useState<any>();
+  const [showPreview, setShowPreview] = useState<boolean>(false);
   const [value, setValue] = useState<any>();
-  const [inputFilter, setinputFilter] = useState<any>();
+  const [preview, setPreview] = useState<any>();
   const { setFilter } = useContext<any>(FilterContext);
   const [mapData, setMapData] = useState<any>(
-    countries[0]?.features?.map((item: any) => {
+    worldMap.map((item: any) => {
       return {
-        id: item.properties.id,
-        name: item.properties.name,
-        lat: item.geometry.coordinates[1],
-        lon: item.geometry.coordinates[0],
+        name: item.city,
+        lat: item.lat,
+        lon: item.lng,
+        country: item.country,
       };
     })
   );
@@ -27,29 +29,25 @@ export default function WeatherFilter() {
       lat: mapData[0]?.lat,
       lon: mapData[0]?.lon,
     });
-  }, [mapData, setFilter]);
+  }, [mapData]);
 
   const ButtonFilter = () => {
-    if (!mapData) return;
     setFilter({
-      label:
-        mapData?.find((item: any) => item?.id === inputFilter)?.name ||
-        mapData[0]?.name,
-      lat:
-        mapData?.find((item: any) => item?.id === inputFilter)?.lat ||
-        mapData[0]?.lat,
-      lon:
-        mapData?.find((item: any) => item?.id === inputFilter)?.lon ||
-        mapData[0]?.lon,
+      label: value[0]?.name,
+      lat: value[0]?.lat,
+      lon: value[0]?.lon,
     });
   };
 
   useMemo(() => {
-    setValue(
-      mapData?.filter((item: any) => {
-        return item && item?.name && item?.name?.toLowerCase()?.includes(input);
-      })
+    setPreview(
+      mapData.filter((item: any) =>
+        item?.name
+          ?.toLowerCase()
+          ?.includes(input?.toLowerCase() || "value not inserted")
+      )
     );
+    setShowPreview(false);
   }, [input]);
 
   return (
@@ -73,23 +71,24 @@ export default function WeatherFilter() {
               placeholder="Search for places"
               className="w-full h-10 rounded-lg px-8 justify-center items-center text-black"
             />
-            <div className="flex w-full absolute ">
+            <div
+              className={`flex w-full absolute ${showPreview ? "hidden" : ""} ${
+                showPreview ? "hidden" : ""
+              } `}
+            >
               {input !== "" && (
                 <ul className="max-h-[24rem] z-100 rounded-lg overflow-auto text-black bg-white shadow-md w-full">
-                  {value?.map((item: any, index: any) => {
+                  {preview?.slice(0, 9)?.map((item: any, index: any) => {
                     return (
                       <li
-                        id={item?.id}
+                        id={item?.name}
                         key={index}
                         className="hover:bg-gray-300 cursor-pointer min-h-10 justify-start items-center flex px-2"
-                        value={item?.id}
-                        onClick={(event: any) => {
-                          setinputFilter(event.target.value);
-                          setInput(
-                            mapData?.find(
-                              (item: any) => item?.id === event.target.value
-                            )?.name
-                          );
+                        value={item?.name}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setInput(item?.name);
+                          setShowPreview(true);
                         }}
                       >
                         {item?.name}
@@ -106,6 +105,11 @@ export default function WeatherFilter() {
           type="submit"
           onClick={() => {
             setInput("");
+            setValue(
+              mapData?.filter((item: any) => {
+                return item?.name?.toUpperCase()?.match(input?.toUpperCase());
+              })
+            );
           }}
           className="flex items-center hover:bg-gray-300 bg-white justify-center  w-10 h-10 rounded-lg  "
         >

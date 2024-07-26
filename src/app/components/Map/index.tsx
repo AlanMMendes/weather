@@ -10,15 +10,18 @@ import {
 import { geo } from "../../data";
 import Loading from "../Loading";
 
-const MapChart = () => {
+const MapChart = (data: any) => {
   const { filter: message } = useContext<any>(FilterContext);
 
   return (
     <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
       {message && (
         <>
-          <ComposableMap className="rounded-lg w-full h-full">
-            <ZoomableGroup center={[message.lat, message.lon]} zoom={10}>
+          <ComposableMap
+            className="rounded-lg w-full h-full"
+            projection="geoMercator"
+          >
+            <ZoomableGroup center={[message?.lon, message?.lat]} zoom={10}>
               <Geographies geography={geo}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
@@ -26,11 +29,8 @@ const MapChart = () => {
                   ))
                 }
               </Geographies>
-              <Marker coordinates={[message.lat, message.lon]}>
-                <text fill="red" fontSize={2} x={1}>
-                  {message.label}
-                </text>
-                <circle r={0.5} fill="red" />
+              <Marker coordinates={[message?.lon, message?.lat]}>
+                <circle r={1} fill="#F53" />
               </Marker>
             </ZoomableGroup>
           </ComposableMap>

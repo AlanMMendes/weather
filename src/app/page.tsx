@@ -21,9 +21,9 @@ import WeatherFilter from "./components/WeatherFilter";
 export default function Home() {
   const { filter } = useContext<any>(FilterContext);
   const { data: Response, isLoading: isLoadingResponse } = useWeather(
-    filter,
-    filter.lat,
-    filter.lon
+    filter?.lat,
+    filter?.lon,
+    filter
   );
 
   const selectedIcon = (type: any, size: any) => {
@@ -173,7 +173,7 @@ export default function Home() {
       </div>
       <div className="text-black py-2 px-2">
         <div className="w-full h-96">
-          <MapChart />
+          <MapChart data={Response} />
         </div>
       </div>
     </div>

@@ -1,9 +1,7 @@
 "use client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useState } from "react";
 
 export const FilterContext: any = createContext({} as any);
-const queryClient = new QueryClient();
 
 export const FilterProvider = ({ children }: any) => {
   const [filter, setFilter] = useState<any>({
@@ -14,7 +12,7 @@ export const FilterProvider = ({ children }: any) => {
 
   return (
     <FilterContext.Provider value={{ filter, setFilter }}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      {children}
     </FilterContext.Provider>
   );
 };
