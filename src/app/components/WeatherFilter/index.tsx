@@ -1,4 +1,4 @@
-"use client"; // This is a client component 👈🏽
+"use client";
 import { FilterContext } from "@/app/hooks/context/filter";
 import { useContext, useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
@@ -49,8 +49,6 @@ export default function WeatherFilter() {
     );
     setShowPreview(false);
   }, [input]);
-
-  console.log(preview?.slice(0, 9).length);
 
   return (
     <form

@@ -4,15 +4,15 @@ import useWeather from "@/app/hooks/useFilter";
 import moment from "moment";
 import Image from "next/image";
 import { useContext } from "react";
-import SunnyIcon from "./components/Assets/clearIcon.svg";
-import ClearSmall from "./components/Assets/clearSmall.svg";
-import CloudRain from "./components/Assets/cloudIcon.svg";
-import CloudSmall from "./components/Assets/cloudSmall.svg";
-import Humidity from "./components/Assets/humidity.svg";
-import MaxTemperature from "./components/Assets/max-temperature.svg";
-import RainSmall from "./components/Assets/rainSmall.svg";
-import RainIcon from "./components/Assets/rainyIcon.svg";
-import Wind from "./components/Assets/wind.svg";
+import sunnyIcon from "../../public/clearIcon.svg";
+import clearSmall from "../../public/clearSmall.svg";
+import cloudRain from "../../public/cloudIcon.svg";
+import cloudSmall from "../../public/cloudSmall.svg";
+import humidity from "../../public/humidity.svg";
+import maxTemperature from "../../public/max-temperature.svg";
+import rainSmall from "../../public/rainSmall.svg";
+import rainIcon from "../../public/rainyIcon.svg";
+import wind from "../../public/wind.svg";
 import ButtonTheme from "./components/ButtonTheme";
 import Loading from "./components/Loading";
 import MapChart from "./components/Map";
@@ -28,25 +28,25 @@ export default function Home() {
 
   const selectedIcon = (type: any, size: any) => {
     if (type === "Clouds") {
-      return <Image src={CloudRain} alt={"Clouds"} width={size} />;
+      return <Image src={cloudRain} alt={"Clouds"} width={size} />;
     } else if (type === "Rain") {
       return (
-        <Image src={RainIcon} alt={"Rain"} width={size} className="px-2" />
+        <Image src={rainIcon} alt={"Rain"} width={size} className="px-2" />
       );
     } else if (type === "Clear") {
       return (
-        <Image src={SunnyIcon} alt={"Sunny"} width={size} className="px-2 " />
+        <img src={sunnyIcon} alt={"Sunny"} width={size} className="px-2 " />
       );
     }
   };
 
   const selectedSmallIcon = (type: any, size: any) => {
     if (type === "Clouds") {
-      return <Image src={CloudSmall} alt={"CloudSmall"} width={size} />;
+      return <Image src={cloudSmall} alt={"CloudSmall"} width={size} />;
     } else if (type === "Rain") {
-      return <Image src={RainSmall} alt={"RainSmall"} width={size} />;
+      return <Image src={rainSmall} alt={"RainSmall"} width={size} />;
     } else if (type === "Clear") {
-      return <Image src={ClearSmall} alt={"ClearSmall"} width={size} />;
+      return <Image src={clearSmall} alt={"ClearSmall"} width={size} />;
     }
   };
 
@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <div className="flex lg:flex-row flex-col">
-      <div className="lg:flex-row lg:gap-1 min-h-screen flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:min-h-screen md:h-auto lg:w-96">
+      <div className="lg:flex-row lg:gap-1  flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:min-h-screen md:h-auto lg:w-96">
         <div className=" flex-col py-2 h-full px-2 gap-2  lg:rounded-lg lg:w-96  lg:h-auto md:h-auto">
           <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black   gap-3">
             <div className="flex flex-row gap-2 ">
@@ -99,7 +99,7 @@ export default function Home() {
                   <Loading extraClass={"w-5 h-5"} />
                 ) : (
                   <>
-                    <Image src={Wind} alt={"Wind"} width={25} />
+                    <Image src={wind} alt={"Wind"} width={25} />
                     <span className="font-medium text-sm">
                       {Math.round(Response?.list[0]?.wind?.speed)} km/h
                     </span>
@@ -112,7 +112,7 @@ export default function Home() {
                   <Loading extraClass={"w-5 h-5"} />
                 ) : (
                   <>
-                    <Image src={Humidity} alt={"Humidity"} width={25} />
+                    <Image src={humidity} alt={"Humidity"} width={25} />
                     <span className="font-medium text-sm">
                       {Math.round(Response?.list[0]?.main?.humidity)}%
                     </span>
@@ -126,7 +126,7 @@ export default function Home() {
                 ) : (
                   <>
                     <Image
-                      src={MaxTemperature}
+                      src={maxTemperature}
                       alt={"MaxTemperature"}
                       width={25}
                     />
@@ -171,7 +171,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="text-black py-2 px-2">
+      <div className="text-black py-2 px-2 w-full">
         <div className="w-full h-96">
           <MapChart data={Response} />
         </div>
