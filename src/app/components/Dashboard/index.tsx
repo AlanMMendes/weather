@@ -25,7 +25,7 @@ const Dashboard = () => {
           </span>
         </div>
 
-        <div className="flex h-auto rounded-lg   min-h-96 w-full justify-center items-center">
+        <div className="flex h-auto rounded-lg  min-h-96 w-full justify-center items-center">
           {isLoadingResponse ? (
             <Loading />
           ) : (
