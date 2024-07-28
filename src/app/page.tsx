@@ -35,7 +35,7 @@ export default function Home() {
       );
     } else if (type === "Clear") {
       return (
-        <img src={sunnyIcon} alt={"Sunny"} width={size} className="px-2 " />
+        <Image src={sunnyIcon} alt={"Sunny"} width={size} className="px-2 " />
       );
     }
   };
@@ -149,9 +149,10 @@ export default function Home() {
               <Loading extraClass={"w-12 h-12"} />
             ) : (
               <>
-                {Response?.list?.slice(0, 6)?.map((item: any) => {
+                {Response?.list?.slice(0, 6)?.map((item: any, index: any) => {
                   return (
                     <div
+                      key={index}
                       className={`shadow-md min-h-24 ${selectedBg(
                         item?.weather[0]?.main
                       )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-20 border shadow-xl`}

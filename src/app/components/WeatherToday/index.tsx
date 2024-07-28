@@ -17,9 +17,12 @@ const WeatherToday = ({ data, loading }: any) => {
 
   return (
     <div className="flex flex-col gap-10 w-full ">
-      {data?.list?.slice(0, 3)?.map((item: any) => {
+      {data?.list?.slice(0, 3)?.map((item: any, index: any) => {
         return (
-          <div className="flex flex-row w-full dark:shadow-zinc-950 shadow-md  min-w-28 h-42 rounded-2xl justify-center items-center">
+          <div
+            key={index}
+            className="flex flex-row w-full dark:shadow-zinc-950 shadow-md  min-w-28 h-42 rounded-2xl justify-center items-center"
+          >
             <div className="flex flex-col justify-center items-center">
               <span className="text-black dark:text-white">
                 {moment.unix(item?.dt).fromNow()}

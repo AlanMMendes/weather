@@ -29,7 +29,7 @@ export default function WeatherFilter() {
       lat: mapData[0]?.lat,
       lon: mapData[0]?.lon,
     });
-  }, [mapData]);
+  }, [mapData, setFilter]);
 
   const ButtonFilter = () => {
     setFilter({
@@ -48,7 +48,7 @@ export default function WeatherFilter() {
       )
     );
     setShowPreview(false);
-  }, [input]);
+  }, [input, mapData]);
 
   return (
     <form
