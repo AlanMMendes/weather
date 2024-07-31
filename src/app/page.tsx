@@ -14,6 +14,7 @@ import rainSmall from "../../public/rainSmall.svg";
 import rainIcon from "../../public/rainyIcon.svg";
 import wind from "../../public/wind.svg";
 import ButtonTheme from "./components/ButtonTheme";
+import Example from "./components/Charts/WindChart";
 import Loading from "./components/Loading";
 import MapChart from "./components/Map";
 import WeatherFilter from "./components/WeatherFilter";
@@ -28,14 +29,16 @@ export default function Home() {
 
   const selectedIcon = (type: any, size: any) => {
     if (type === "Clouds") {
-      return <Image src={cloudRain} alt={"Clouds"} width={size} />;
+      return (
+        <Image src={cloudRain} alt={"Clouds"} width={size} className="px-2" />
+      );
     } else if (type === "Rain") {
       return (
         <Image src={rainIcon} alt={"Rain"} width={size} className="px-2" />
       );
     } else if (type === "Clear") {
       return (
-        <Image src={sunnyIcon} alt={"Sunny"} width={size} className="px-2 " />
+        <Image src={sunnyIcon} alt={"Sunny"} width={size} className="px-2" />
       );
     }
   };
@@ -62,9 +65,9 @@ export default function Home() {
 
   return (
     <div className="flex lg:flex-row flex-col">
-      <div className="lg:flex-row lg:gap-1  flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:min-h-screen md:h-auto lg:w-96">
-        <div className=" flex-col py-2 h-full px-2 gap-2  lg:rounded-lg lg:w-96  lg:h-auto md:h-auto">
-          <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black   gap-3">
+      <div className="lg:flex-row lg:gap-1 flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:h-auto lg:w-96">
+        <div className="flex-col py-2 h-full px-2 gap-0 lg:rounded-lg lg:w-96 lg:h-auto md:h-auto">
+          <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black gap-3">
             <div className="flex flex-row gap-2 ">
               <ButtonTheme />
               <WeatherFilter />
@@ -144,7 +147,7 @@ export default function Home() {
               <span className="font-medium text-lg dark:text-white">Today</span>
             </div>
           </div>
-          <div className="flex flex-row justify-center items-center flex-wrap gap-2 bg-white dark:bg-zinc-950 shadow-md rounded-3xl py-5 min-h-60">
+          <div className="flex flex-row justify-center items-center flex-wrap gap-2 bg-white dark:bg-zinc-950 shadow-md rounded-3xl  min-h-60">
             {isLoadingResponse ? (
               <Loading extraClass={"w-12 h-12"} />
             ) : (
@@ -172,9 +175,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="text-black py-2 px-2 w-full">
+    
+      <div className="text-black lg:py-2 px-2 w-full space-y-1">
         <div className="w-full h-96">
           <MapChart data={Response} />
+        </div>
+        <div className="w-full h-96">
+          <Example response={Response} />
         </div>
       </div>
     </div>
