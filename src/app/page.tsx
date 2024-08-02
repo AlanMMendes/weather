@@ -17,6 +17,7 @@ import ButtonTheme from "./components/ButtonTheme";
 import Example from "./components/Charts/WindChart";
 import Loading from "./components/Loading";
 import MapChart from "./components/Map";
+import TopCards from "./components/TopCards";
 import WeatherFilter from "./components/WeatherFilter";
 
 export default function Home() {
@@ -175,8 +176,52 @@ export default function Home() {
           </div>
         </div>
       </div>
-    
+
       <div className="text-black lg:py-2 px-2 w-full space-y-1">
+        <div className="flex flex-row justify-evenly gap-5 flex-wrap py-1">
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+          <TopCards
+            title={"Teste"}
+            icon={cloudRain}
+            content={"Teste"}
+            loading={false}
+          />
+        </div>
         <div className="w-full h-96">
           <MapChart data={Response} />
         </div>
