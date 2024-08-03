@@ -14,11 +14,11 @@ const MapChart = (data: any) => {
   const { filter: message } = useContext<any>(FilterContext);
 
   return (
-    <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
+    <div className="flex flex-wrap w-full h-96  bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
       {message && (
         <>
           <ComposableMap
-            className="rounded-lg w-full h-full"
+            className="rounded-lg flex flex-wrap w-full h-full "
             projection="geoMercator"
           >
             <ZoomableGroup center={[message?.lon, message?.lat]} zoom={10}>

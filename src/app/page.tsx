@@ -4,6 +4,7 @@ import useWeather from "@/app/hooks/useFilter";
 import moment from "moment";
 import Image from "next/image";
 import { useContext } from "react";
+import cityIcon from "../../public/city.svg";
 import sunnyIcon from "../../public/clearIcon.svg";
 import clearSmall from "../../public/clearSmall.svg";
 import cloudRain from "../../public/cloudIcon.svg";
@@ -12,6 +13,9 @@ import humidity from "../../public/humidity.svg";
 import maxTemperature from "../../public/max-temperature.svg";
 import rainSmall from "../../public/rainSmall.svg";
 import rainIcon from "../../public/rainyIcon.svg";
+import sunriseIcon from "../../public/sunrise.svg";
+import sunsetIcon from "../../public/sunset.svg";
+import timezoneIcon from "../../public/timezone.svg";
 import wind from "../../public/wind.svg";
 import ButtonTheme from "./components/ButtonTheme";
 import Example from "./components/Charts/WindChart";
@@ -27,6 +31,8 @@ export default function Home() {
     filter?.lon,
     filter
   );
+
+  console.log(Response);
 
   const selectedIcon = (type: any, size: any) => {
     if (type === "Clouds") {
@@ -65,8 +71,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex lg:flex-row flex-col">
-      <div className="lg:flex-row lg:gap-1 flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 lg:bg-gray-100 lg:h-auto lg:min-h-screen md:h-auto lg:w-96">
+    <div className="flex lg:flex-row flex-col  ">
+      <div className="lg:flex-row lg:gap-1 flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 h-full lg:bg-gray-100 lg:h-auto lg:min-h-screen md:h-auto lg:w-96">
         <div className="flex-col py-2 h-full px-2 gap-0 lg:rounded-lg lg:w-96 lg:h-auto md:h-auto">
           <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black gap-3">
             <div className="flex flex-row gap-2 ">
@@ -98,7 +104,7 @@ export default function Home() {
               )}
             </div>
             <div className="flex flex-row flex-wrap justify-center items-center gap-2">
-              <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
+              <div className="shadow-md min-h-24 hover:scale-105 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
                 {isLoadingResponse ? (
                   <Loading extraClass={"w-5 h-5"} />
                 ) : (
@@ -111,7 +117,7 @@ export default function Home() {
                   </>
                 )}
               </div>
-              <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
+              <div className="shadow-md min-h-24 hover:scale-105 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
                 {isLoadingResponse ? (
                   <Loading extraClass={"w-5 h-5"} />
                 ) : (
@@ -124,7 +130,7 @@ export default function Home() {
                   </>
                 )}
               </div>
-              <div className="shadow-md min-h-24 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
+              <div className="shadow-md min-h-24 hover:scale-105 bg-white rounded-3xl dark:bg-zinc-950 dark:text-white gap-1 flex flex-col justify-center items-center min-w-24">
                 {isLoadingResponse ? (
                   <Loading extraClass={"w-5 h-5"} />
                 ) : (
@@ -143,7 +149,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex py-2 flex-col justify-center items-start md:items-center  md:justify-start  lg:items-start lg:justify-start text-black">
+          <div className="flexflex-col justify-center items-start md:items-center  md:justify-start  lg:items-start lg:justify-start text-black">
             <div>
               <span className="font-medium text-lg dark:text-white">Today</span>
             </div>
@@ -157,7 +163,7 @@ export default function Home() {
                   return (
                     <div
                       key={index}
-                      className={`shadow-md min-h-24 ${selectedBg(
+                      className={`shadow-md min-h-24 hover:scale-105  ${selectedBg(
                         item?.weather[0]?.main
                       )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-20 border shadow-xl`}
                     >
@@ -177,55 +183,37 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="text-black lg:py-2 px-2 w-full space-y-1">
-        <div className="flex flex-row justify-evenly gap-5 flex-wrap py-1">
+      <div className="flex flex-col text-black px-2 gap-2 w-full">
+        <div className="flex flex-row justify-center gap-5 items-center align-middle flex-wrap ">
           <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
+            title={"Sunrise"}
+            icon={sunriseIcon}
+            content={moment(Response?.city?.sunrise)?.format("HH:mm")}
+            loading={isLoadingResponse}
           />
           <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
+            title={"Sunset"}
+            icon={sunsetIcon}
+            content={moment(Response?.city?.sunset)?.format("HH:mm")}
+            loading={isLoadingResponse}
           />
           <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
+            title={"Population"}
+            icon={cityIcon}
+            content={Response?.city?.population}
+            loading={isLoadingResponse}
           />
           <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
-          />
-          <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
-          />
-          <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
-          />
-          <TopCards
-            title={"Teste"}
-            icon={cloudRain}
-            content={"Teste"}
-            loading={false}
+            title={"Timezone"}
+            icon={timezoneIcon}
+            content={Response?.city?.timezone}
+            loading={isLoadingResponse}
           />
         </div>
-        <div className="w-full h-96">
+        <div className="w-full">
           <MapChart data={Response} />
         </div>
-        <div className="w-full h-96">
+        <div className="w-full h-96 ">
           <Example response={Response} />
         </div>
       </div>
