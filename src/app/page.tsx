@@ -19,11 +19,14 @@ import ButtonTheme from "./components/ButtonTheme";
 import Example from "./components/Charts/WindChart";
 import Loading from "./components/Loading";
 import MapChart from "./components/Map";
+import Modal from "./components/Modal";
 import TopCards from "./components/TopCards";
 import WeatherFilter from "./components/WeatherFilter";
 
 export default function Home() {
   const filter = useSelector((state: any) => state.filter);
+  const data = useSelector((state: any) => state.data);
+  console.log(data);
   const { data: Response, isLoading: isLoadingResponse } = useWeather(
     filter?.lat,
     filter?.lon,
@@ -207,6 +210,37 @@ export default function Home() {
         </div>
         <div className="w-full h-96 ">
           <Example response={Response} />
+        </div>
+        <div className="w-full flex flex-row gap-1 flex-wrap">
+          <div className="bg-slate-50 min-h-44 min-w-40 w-40 h-40 rounded-2xl flex flex-col justify-start gap-5 items-center">
+            <Modal />
+            <div className="flex-col gap-3  text-center flex items-center">
+              <span className="font-bold w-24">World forecast</span>
+              <span className="text-sm font-light text-center">
+                Add the cities you are interested in
+              </span>
+            </div>
+          </div>
+          {data?.items?.map((item: any, index: any) => {
+            return (
+              <div
+                key={index}
+                className={`shadow-md min-h-24 hover:scale-105  ${selectedBg(
+                  item?.list[0]?.weather[0]?.main
+                )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-40 border shadow-xl`}
+              >
+                <div className="flex-col gap-3 text-center flex items-center">
+                  <span className="font-bold text-5xl">
+                    {Math.round(item?.list[0]?.main?.temp)}°
+                  </span>
+
+                  <span className="text-pretty font-light text-center">
+                    {item?.city?.name}/{item?.city?.country}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

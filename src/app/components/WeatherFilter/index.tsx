@@ -3,14 +3,11 @@ import { setData } from "@/app/features/data/filterSlice";
 import { useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { TfiTarget } from "react-icons/tfi";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import worldCities from "../../json/citiesWorld.json";
 
 export default function WeatherFilter() {
   const dispatch = useDispatch();
-  const data = useSelector((state: any) => state.data);
-  console.log(data);
-
   const [worldMap, setWorldMap] = useState<any>(worldCities);
   const [input, setInput] = useState<any>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
@@ -26,16 +23,6 @@ export default function WeatherFilter() {
       };
     })
   );
-
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchData(
-  //       `https://api.openweathermap.org/data/2.5/forecast?lat=${-22}&lon=${-43}&appid=${
-  //         process.env.NEXT_PUBLIC_BASE_API_URL
-  //       }&units=metric`
-  //     )
-  //   );
-  // }, [dispatch]);
 
   const ButtonFilter = () => {
     dispatch(
