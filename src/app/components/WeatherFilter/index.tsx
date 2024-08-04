@@ -1,17 +1,21 @@
 "use client";
-import { FilterContext } from "@/app/hooks/context/filter";
-import { useContext, useMemo, useState } from "react";
+import { setData } from "@/app/features/data/filterSlice";
+import { useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { TfiTarget } from "react-icons/tfi";
-import worldCities from "../../data/citiesWorld.json";
+import { useDispatch, useSelector } from "react-redux";
+import worldCities from "../../json/citiesWorld.json";
 
 export default function WeatherFilter() {
+  const dispatch = useDispatch();
+  const data = useSelector((state: any) => state.data);
+  console.log(data);
+
   const [worldMap, setWorldMap] = useState<any>(worldCities);
   const [input, setInput] = useState<any>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [value, setValue] = useState<any>();
   const [preview, setPreview] = useState<any>();
-  const { setFilter } = useContext<any>(FilterContext);
   const [mapData, setMapData] = useState<any>(
     worldMap.map((item: any) => {
       return {
@@ -23,20 +27,23 @@ export default function WeatherFilter() {
     })
   );
 
-  useMemo(() => {
-    setFilter({
-      label: mapData[0]?.name,
-      lat: mapData[0]?.lat,
-      lon: mapData[0]?.lon,
-    });
-  }, [mapData, setFilter]);
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchData(
+  //       `https://api.openweathermap.org/data/2.5/forecast?lat=${-22}&lon=${-43}&appid=${
+  //         process.env.NEXT_PUBLIC_BASE_API_URL
+  //       }&units=metric`
+  //     )
+  //   );
+  // }, [dispatch]);
 
   const ButtonFilter = () => {
-    setFilter({
-      label: value[0]?.name,
-      lat: value[0]?.lat,
-      lon: value[0]?.lon,
-    });
+    dispatch(
+      setData({
+        lat: value[0]?.lat,
+        lon: value[0]?.lon,
+      })
+    );
   };
 
   useMemo(() => {
@@ -106,13 +113,13 @@ export default function WeatherFilter() {
             setInput("");
             setValue(
               mapData?.filter((item: any) => {
-                return item?.name?.toUpperCase()?.match(input?.toUpperCase());
+                return item?.name?.toUpperCase() === input?.toUpperCase();
               })
             );
           }}
           className="flex items-center hover:bg-gray-300 bg-white justify-center  w-10 h-10 rounded-lg  "
         >
-          <TfiTarget className="text-black " />
+          <TfiTarget className="text-black" />
         </button>
       </div>
     </form>

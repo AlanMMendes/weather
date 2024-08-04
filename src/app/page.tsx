@@ -1,10 +1,8 @@
 "use client";
-import { FilterContext } from "@/app/hooks/context/filter";
 import useWeather from "@/app/hooks/useFilter";
 import moment from "moment";
 import Image from "next/image";
-import { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import cityIcon from "../../public/city.svg";
 import sunnyIcon from "../../public/clearIcon.svg";
 import clearSmall from "../../public/clearSmall.svg";
@@ -14,7 +12,6 @@ import humidity from "../../public/humidity.svg";
 import maxTemperature from "../../public/max-temperature.svg";
 import rainSmall from "../../public/rainSmall.svg";
 import rainIcon from "../../public/rainyIcon.svg";
-import sunriseIcon from "../../public/sunrise.svg";
 import sunsetIcon from "../../public/sunset.svg";
 import timezoneIcon from "../../public/timezone.svg";
 import wind from "../../public/wind.svg";
@@ -24,11 +21,9 @@ import Loading from "./components/Loading";
 import MapChart from "./components/Map";
 import TopCards from "./components/TopCards";
 import WeatherFilter from "./components/WeatherFilter";
-import { increment } from "./data/reducers";
-import { RootState } from "./data/stores";
 
 export default function Home() {
-  const { filter } = useContext<any>(FilterContext);
+  const filter = useSelector((state: any) => state.filter);
   const { data: Response, isLoading: isLoadingResponse } = useWeather(
     filter?.lat,
     filter?.lon,
@@ -71,12 +66,8 @@ export default function Home() {
     }
   };
 
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
-
   return (
     <div className="flex lg:flex-row flex-col">
-      <button onClick={() => dispatch(increment())}>Incrementar 2</button>
       <div className="lg:flex-row lg:gap-1 flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 h-full lg:bg-gray-100 lg:h-auto lg:min-h-screen md:h-auto lg:w-96">
         <div className="flex-col py-2 h-full px-2 gap-0 lg:rounded-lg lg:w-96 lg:h-auto md:h-auto">
           <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black gap-3">
@@ -89,7 +80,9 @@ export default function Home() {
                 <Loading extraClass={"w-12 h-12"} />
               ) : (
                 <>
-                  <span className="text-3xl font-thin">{filter?.label}</span>
+                  <span className="text-3xl font-thin">
+                    {Response?.city?.name}
+                  </span>
                   {selectedIcon(Response?.list[0]?.weather[0]?.main, 300)}
                 </>
               )}
@@ -190,12 +183,6 @@ export default function Home() {
 
       <div className="flex flex-col text-black px-2 gap-2 w-full">
         <div className="flex flex-row justify-center gap-5 items-center align-middle flex-wrap ">
-          <TopCards
-            title={"Sunrise"}
-            icon={sunriseIcon}
-            content={moment(Response?.city?.sunrise)?.format("HH:mm")}
-            loading={isLoadingResponse}
-          />
           <TopCards
             title={"Sunset"}
             icon={sunsetIcon}
