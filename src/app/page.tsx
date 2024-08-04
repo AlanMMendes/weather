@@ -4,6 +4,7 @@ import useWeather from "@/app/hooks/useFilter";
 import moment from "moment";
 import Image from "next/image";
 import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import cityIcon from "../../public/city.svg";
 import sunnyIcon from "../../public/clearIcon.svg";
 import clearSmall from "../../public/clearSmall.svg";
@@ -23,6 +24,8 @@ import Loading from "./components/Loading";
 import MapChart from "./components/Map";
 import TopCards from "./components/TopCards";
 import WeatherFilter from "./components/WeatherFilter";
+import { increment } from "./data/reducers";
+import { RootState } from "./data/stores";
 
 export default function Home() {
   const { filter } = useContext<any>(FilterContext);
@@ -31,8 +34,6 @@ export default function Home() {
     filter?.lon,
     filter
   );
-
-  console.log(Response);
 
   const selectedIcon = (type: any, size: any) => {
     if (type === "Clouds") {
@@ -70,8 +71,12 @@ export default function Home() {
     }
   };
 
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch();
+
   return (
-    <div className="flex lg:flex-row flex-col  ">
+    <div className="flex lg:flex-row flex-col">
+      <button onClick={() => dispatch(increment())}>Incrementar 2</button>
       <div className="lg:flex-row lg:gap-1 flex-col dark:bg-zinc-900 lg:dark:bg-zinc-900 h-full lg:bg-gray-100 lg:h-auto lg:min-h-screen md:h-auto lg:w-96">
         <div className="flex-col py-2 h-full px-2 gap-0 lg:rounded-lg lg:w-96 lg:h-auto md:h-auto">
           <div className="flex flex-col max-w-full lg:max-w-96 md:max-w-full items-center lg:items-center md:items-center justify-center text-black gap-3">
