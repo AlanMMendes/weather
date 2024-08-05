@@ -16,7 +16,7 @@ function TopCards<ItemType>({
   loading,
 }: ListProps<ItemType>) {
   return (
-    <div className="items-center max-w-40 justify-center text-black dark:text-white hover:scale-105">
+    <div className="items-center max-w-44 justify-center text-black dark:text-white hover:scale-105">
       {!loading && (
         <>
           <span className="text-sm">{title}</span>

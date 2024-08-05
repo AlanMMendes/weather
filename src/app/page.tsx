@@ -26,7 +26,6 @@ import WeatherFilter from "./components/WeatherFilter";
 export default function Home() {
   const filter = useSelector((state: any) => state.filter);
   const data = useSelector((state: any) => state.data);
-  console.log(data);
   const { data: Response, isLoading: isLoadingResponse } = useWeather(
     filter?.lat,
     filter?.lon,
@@ -184,37 +183,11 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col text-black px-2 gap-2 w-full">
-        <div className="flex flex-row justify-center gap-5 items-center align-middle flex-wrap ">
-          <TopCards
-            title={"Sunset"}
-            icon={sunsetIcon}
-            content={moment(Response?.city?.sunset)?.format("HH:mm")}
-            loading={isLoadingResponse}
-          />
-          <TopCards
-            title={"Population"}
-            icon={cityIcon}
-            content={Response?.city?.population}
-            loading={isLoadingResponse}
-          />
-          <TopCards
-            title={"Timezone"}
-            icon={timezoneIcon}
-            content={Response?.city?.timezone}
-            loading={isLoadingResponse}
-          />
-        </div>
-        <div className="w-full">
-          <MapChart data={Response} />
-        </div>
-        <div className="w-full h-96 ">
-          <Example response={Response} />
-        </div>
+      <div className="flex flex-col text-black px-2 gap-2 w-full py-2">
         <div className="w-full flex flex-row gap-1 flex-wrap">
-          <div className="bg-slate-50 min-h-44 min-w-40 w-40 h-40 rounded-2xl flex flex-col justify-start gap-5 items-center">
+          <div className="bg-white dark:bg-zinc-900 min-h-44 py-1 min-w-40 w-40 h-40 rounded-2xl flex flex-col justify-start gap-5 items-center">
             <Modal />
-            <div className="flex-col gap-3  text-center flex items-center">
+            <div className="flex-col gap-3 dark:text-white text-center flex items-center">
               <span className="font-bold w-24">World forecast</span>
               <span className="text-sm font-light text-center">
                 Add the cities you are interested in
@@ -225,7 +198,7 @@ export default function Home() {
             return (
               <div
                 key={index}
-                className={`shadow-md min-h-24 hover:scale-105  ${selectedBg(
+                className={`shadow-md min-h-44 hover:scale-105  ${selectedBg(
                   item?.list[0]?.weather[0]?.main
                 )} rounded-3xl gap-1 flex flex-col justify-center items-center min-w-40 border shadow-xl`}
               >
@@ -241,6 +214,32 @@ export default function Home() {
               </div>
             );
           })}
+        </div>
+        <div className="w-full">
+          <MapChart data={Response} />
+        </div>
+        <div className="w-full min-h-96 h-96 flex lg:flex-row flex-col gap-1">
+          <Example response={Response} />
+          <div className="flex  flex-row justify-center items-center flex-wrap gap-2 bg-white dark:bg-zinc-900  rounded-lg  min-h-60">
+            <TopCards
+              title={"Sunset"}
+              icon={sunsetIcon}
+              content={moment(Response?.city?.sunset)?.format("HH:mm")}
+              loading={isLoadingResponse}
+            />
+            <TopCards
+              title={"Population"}
+              icon={cityIcon}
+              content={Response?.city?.population}
+              loading={isLoadingResponse}
+            />
+            <TopCards
+              title={"Timezone"}
+              icon={timezoneIcon}
+              content={Response?.city?.timezone}
+              loading={isLoadingResponse}
+            />
+          </div>
         </div>
       </div>
     </div>

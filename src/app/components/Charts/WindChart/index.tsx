@@ -32,7 +32,7 @@ const Example = (response: any) => {
     <ResponsiveContainer
       width="100%"
       height="100%"
-      className="bg-white dark:bg-zinc-900 rounded-md max-h-96"
+      className="bg-white dark:bg-zinc-900 rounded-md min-h-96"
     >
       <LineChart
         data={data}
