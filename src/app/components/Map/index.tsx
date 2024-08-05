@@ -1,5 +1,5 @@
-import { FilterContext } from "@/app/hooks/context/filter";
-import { useContext } from "react";
+import { geo } from "@/app/config/geoConfig";
+import { useSelector } from "react-redux";
 import {
   ComposableMap,
   Geographies,
@@ -7,21 +7,20 @@ import {
   Marker,
   ZoomableGroup,
 } from "react-simple-maps";
-import { geo } from "../../data";
 import Loading from "../Loading";
 
 const MapChart = (data: any) => {
-  const { filter: message } = useContext<any>(FilterContext);
+  const filter = useSelector((state: any) => state.filter);
 
   return (
-    <div className="w-full h-full min-h-96 bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
-      {message && (
+    <div className="flex flex-wrap w-full h-96  bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
+      {filter && (
         <>
           <ComposableMap
-            className="rounded-lg w-full h-full"
+            className="rounded-lg flex flex-wrap w-full h-full "
             projection="geoMercator"
           >
-            <ZoomableGroup center={[message?.lon, message?.lat]} zoom={10}>
+            <ZoomableGroup center={[filter?.lon, filter?.lat]} zoom={10}>
               <Geographies geography={geo}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
@@ -29,14 +28,14 @@ const MapChart = (data: any) => {
                   ))
                 }
               </Geographies>
-              <Marker coordinates={[message?.lon, message?.lat]}>
+              <Marker coordinates={[filter?.lon, filter?.lat]}>
                 <circle r={1} fill="#F53" />
               </Marker>
             </ZoomableGroup>
           </ComposableMap>
         </>
       )}
-      {!message && (
+      {!filter && (
         <>
           <Loading />
         </>

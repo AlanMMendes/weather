@@ -32,16 +32,14 @@ const Example = (response: any) => {
     <ResponsiveContainer
       width="100%"
       height="100%"
-      className="w-full h-full min-h-96 bg-white dark:bg-zinc-900  rounded-lg shadow-md"
+      className="bg-white dark:bg-zinc-900 rounded-md min-h-96"
     >
       <LineChart
-        width={730}
-        height={250}
         data={data}
         margin={{ top: 30, right: 40, left: 0, bottom: 10 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" unit={""} />
+        <XAxis dataKey="date" unit={""} color="white" />
         <YAxis />
         <Tooltip formatter={(value: any) => labelFormatter(value)} />
 

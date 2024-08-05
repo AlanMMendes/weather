@@ -1,8 +1,9 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 import "./globals.css";
-import FilterProvider from "./hooks/context/filter";
 import ThemeProvider from "./hooks/context/theme";
+import { store } from "./stores";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,13 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider>
-        <QueryClientProvider client={queryClient}>
-          <FilterProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <QueryClientProvider client={queryClient}>
             <body className="bg-slate-200 dark:bg-zinc-950">{children}</body>
-          </FilterProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </Provider>
     </html>
   );
 }
