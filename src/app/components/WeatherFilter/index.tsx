@@ -2,6 +2,7 @@
 import { setData } from "@/app/features/data/filterSlice";
 import { useGeoLocation } from "@/app/hooks/useGeolocation";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CiSearch } from "react-icons/ci";
 import { TfiTarget } from "react-icons/tfi";
 import { useDispatch } from "react-redux";
@@ -9,6 +10,7 @@ import worldCities from "../../json/citiesWorld.json";
 
 export default function WeatherFilter() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { location } = useGeoLocation();
   const [worldMap, setWorldMap] = useState<any>(worldCities);
   const [input, setInput] = useState<any>();
@@ -35,7 +37,7 @@ export default function WeatherFilter() {
         })
       );
     }
-  }, [location]);
+  }, [location, dispatch]);
 
   const ButtonFilter = () => {
     dispatch(
@@ -49,9 +51,7 @@ export default function WeatherFilter() {
   useMemo(() => {
     setPreview(
       mapData.filter((item: any) =>
-        item?.name
-          ?.toLowerCase()
-          ?.includes(input?.toLowerCase() || "value not inserted")
+        item?.name?.toLowerCase()?.includes(input?.toLowerCase())
       )
     );
     setShowPreview(false);
@@ -64,7 +64,7 @@ export default function WeatherFilter() {
         e.preventDefault(), ButtonFilter();
       }}
     >
-      <div className="flex flex-row gap-2 z-50 items-start justify-start w-full">
+      <div className="flex flex-row gap-2 z-10 items-start justify-start w-full">
         <div className="relative flex flex-col w-full justify-center items-center">
           <label className=" text-gray-400 focus-within:text-gray-600 w-full">
             <CiSearch className="pointer-events-none mt-1 text-black absolute h-8 w-8" />
@@ -75,7 +75,7 @@ export default function WeatherFilter() {
               onChange={(event: any) => {
                 setInput(event.target.value);
               }}
-              placeholder="Search for places"
+              placeholder={t("main_page.filter.input")}
               className="w-full h-10 rounded-lg px-8 justify-center items-center text-black"
             />
             <div
@@ -117,9 +117,9 @@ export default function WeatherFilter() {
               })
             );
           }}
-          className="flex items-center hover:bg-gray-300 bg-white justify-center  w-10 h-10 rounded-lg  "
+          className="flex items-center hover:bg-gray-300 dark:hover:bg-zinc-800 bg-white dark:bg-zinc-950 justify-center  w-10 h-10 rounded-lg  "
         >
-          <TfiTarget className="text-black" />
+          <TfiTarget className="text-black dark:text-white" />
         </button>
       </div>
     </form>

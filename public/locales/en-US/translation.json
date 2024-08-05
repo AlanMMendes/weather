@@ -1,0 +1,18 @@
+{
+  "main_page": {
+    "filter.input": "Search for places",
+    "filter.wind": "Wind",
+    "filter.humidity": "Humidity",
+    "filter.maxTemperature": "Max",
+    "filter.day": "Today",
+    "forecast": "Add the cities you are interested in",
+    "world": "World Forecast",
+    "sunset": "Sunset",
+    "population": "Population",
+    "timezone": "Timezone",
+    "loading": "...Loading",
+    "button.close": "Close",
+    "button.insert": "Insert City",
+    "title.cities": "Add Cities"
+  }
+}

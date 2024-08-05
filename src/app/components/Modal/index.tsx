@@ -1,17 +1,18 @@
 import { fetchData } from "@/app/features/data/dataSlice";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import worldCities from "../../json/citiesWorld.json";
 
 export default function Modal() {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const [worldMap, setWorldMap] = useState<any>(worldCities);
   const [input, setInput] = useState<any>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [value, setValue] = useState<any>();
   const [preview, setPreview] = useState<any>();
   const [mapData, setMapData] = useState<any>(
     worldMap.map((item: any) => {
@@ -52,15 +53,13 @@ export default function Modal() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Add Cities</h3>
+                  <h3 className="text-3xl font-semibold">
+                    {t("main_page.title.cities")}
+                  </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
+                  ></button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -75,8 +74,8 @@ export default function Modal() {
                           onChange={(event: any) => {
                             setInput(event.target.value);
                           }}
-                          placeholder="Search for places"
-                          className="w-full h-10 rounded-lg px-8 justify-center bg-gray-200 items-center text-black"
+                          placeholder={t("main_page.filter.input")}
+                          className="w-full h-10 rounded-lg px-8 justify-center bg-gray-100 items-center text-black"
                         />
                         <div
                           className={`flex w-full absolute ${
@@ -111,16 +110,16 @@ export default function Modal() {
                   </div>
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex items-center justify-end min-w-44 w-auto h-36 ">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-white text-red-500 hover:bg-zinc-200 font-bold uppercase text-sm px-6 py-3 rounded shadow-lg hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Close
+                    {t("main_page.button.close")}
                   </button>
                   <button
-                    className="bg-blue-700 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-white text-black  hover:bg-zinc-200 font-bold uppercase text-sm px-6 py-3 rounded shadow-lg hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => {
                       dispatch(
@@ -131,7 +130,7 @@ export default function Modal() {
                       setShowModal(false);
                     }}
                   >
-                    Insert City
+                    {t("main_page.button.insert")}
                   </button>
                 </div>
               </div>

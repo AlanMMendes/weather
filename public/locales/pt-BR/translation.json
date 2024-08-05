@@ -1,0 +1,18 @@
+{
+  "main_page": {
+    "filter.input": "Pesquise por locais",
+    "filter.wind": "Vento",
+    "filter.humidity": "Umidade",
+    "filter.maxTemperature": "Máx",
+    "filter.day": "Hoje",
+    "forecast": "Adicione as cidades do seu interesse",
+    "world": "Previsão Mundial",
+    "sunset": "Pôr do sol",
+    "population": "População",
+    "timezone": "Fuso horário",
+    "loading": "...Carregando",
+    "button.close": "Fechar",
+    "button.insert": "Inserir Cidade",
+    "title.cities": "Adicionar Cidades"
+  }
+}

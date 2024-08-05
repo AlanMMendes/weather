@@ -1,10 +1,10 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
+import "./config/i18n/index.ts";
 import "./globals.css";
 import ThemeProvider from "./hooks/context/theme";
 import { store } from "./stores";
-
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
