@@ -9,12 +9,12 @@ import {
 } from "react-simple-maps";
 import Loading from "../Loading";
 
-const MapChart = (data: any) => {
+const MapChart = () => {
   const filter = useSelector((state: any) => state.filter);
 
   return (
     <div className="flex flex-wrap w-full h-96  bg-white dark:bg-zinc-900 dark:text-white rounded-lg shadow-md">
-      {filter && (
+      {filter ? (
         <>
           <ComposableMap
             className="rounded-lg flex flex-wrap w-full h-full "
@@ -34,11 +34,8 @@ const MapChart = (data: any) => {
             </ZoomableGroup>
           </ComposableMap>
         </>
-      )}
-      {!filter && (
-        <>
-          <Loading />
-        </>
+      ) : (
+        <Loading />
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 import { setData } from "@/app/features/data/filterSlice";
-import { useMemo, useState } from "react";
+import { useGeoLocation } from "@/app/hooks/useGeolocation";
+import { useEffect, useMemo, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { TfiTarget } from "react-icons/tfi";
 import { useDispatch } from "react-redux";
@@ -8,6 +9,7 @@ import worldCities from "../../json/citiesWorld.json";
 
 export default function WeatherFilter() {
   const dispatch = useDispatch();
+  const { location } = useGeoLocation();
   const [worldMap, setWorldMap] = useState<any>(worldCities);
   const [input, setInput] = useState<any>();
   const [showPreview, setShowPreview] = useState<boolean>(false);
@@ -23,6 +25,17 @@ export default function WeatherFilter() {
       };
     })
   );
+
+  useEffect(() => {
+    if (location) {
+      dispatch(
+        setData({
+          lat: location?.latitude || 0,
+          lon: location?.longitude || 0,
+        })
+      );
+    }
+  }, [location]);
 
   const ButtonFilter = () => {
     dispatch(
